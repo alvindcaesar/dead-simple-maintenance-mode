@@ -2,7 +2,7 @@
 Contributors: alvindcaesar
 Author URI: https://alvindcaesar.com
 Plugin URI: https://github.com/alvindcaesar/dead-simple-maintenance-mode
-Tags: coming- oon mode, maintenance mode, developmet mode
+Tags: coming-soon-mode, maintenance-mode, development-mode
 Requires at least: 5.5
 Tested up to: 6.1.1
 Requires PHP: 5.5

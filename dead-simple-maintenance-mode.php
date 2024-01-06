@@ -7,7 +7,7 @@
  * Author URI:      https://alvindcaesar.com
  * Text Domain:     dead-simple-maintenance-mode
  * Domain Path:     /languages
- * Version:         1.0.1
+ * Version:         1.0.2
  *
  */
 

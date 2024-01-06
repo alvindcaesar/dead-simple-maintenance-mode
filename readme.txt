@@ -4,9 +4,9 @@ Author URI: https://alvindcaesar.com
 Plugin URI: https://github.com/alvindcaesar/dead-simple-maintenance-mode
 Tags: coming-soon-mode, maintenance-mode, development-mode
 Requires at least: 5.5
-Tested up to: 6.1.1
+Tested up to: 6.4.2
 Requires PHP: 5.5
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,9 @@ Development for this plugin happens in a public GitHub repository. If you have a
 2. Go to Tools > Dead Simple Maintenance Mode and configure the options.
 
 == Changelog ==
+
+= 1.0.2, January 06, 2024 =
+* Compatibility with 6.4.2
 
 = 1.0.1, December 14, 2022 =
 * Fix any compatibility issues on latest WordPress version

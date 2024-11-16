@@ -1,3 +1,124 @@
 .hidden-field {
     display: none !important;
 }
+
+wrap > .notice {
+    margin: 20px 0;
+}
+
+/* Settings Page Wrapper */
+.dsmm-settings-wrap {
+    max-width: 800px;
+    margin: 20px 0;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Header Section */
+.dsmm-header {
+    background: #fff;
+    padding: 20px 30px;
+    border-bottom: 1px solid #e2e4e7;
+    border-radius: 8px 8px 0 0;
+}
+
+.dsmm-header h1 {
+    margin: 0;
+    color: #1d2327;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+/* Main Content */
+.dsmm-content {
+    padding: 30px;
+}
+
+/* Form Elements */
+.dsmm-content .form-table {
+    margin: 0;
+}
+
+.dsmm-content .form-table th {
+    padding: 20px 10px 20px 0;
+    width: 200px;
+    color: #1d2327;
+}
+
+.dsmm-content .form-table td {
+    padding: 20px 10px;
+}
+
+/* Checkbox Styling */
+.dsmm-checkbox-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.dsmm-checkbox-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+.dsmm-checkbox-wrapper label {
+    padding-left: 45px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 500;
+}
+
+.dsmm-checkbox-wrapper label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 34px;
+    height: 20px;
+    background-color: #ccd0d4;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.dsmm-checkbox-wrapper label:after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 0px;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: left 0.3s;
+}
+
+.dsmm-checkbox-wrapper input[type="checkbox"]:checked + label:before {
+    background-color: #2271b1;
+}
+
+.dsmm-checkbox-wrapper input[type="checkbox"]:checked + label:after {
+    left: 16px;
+}
+
+/* Select Styling */
+.dsmm-content select {
+    min-width: 300px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #8c8f94;
+}
+
+/* Submit Button Section */
+.dsmm-submit {
+    padding: 20px 30px;
+    background: #f8f9fa;
+    border-top: 1px solid #e2e4e7;
+    border-radius: 0 0 8px 8px;
+    margin-top: 20px;
+}
+
+.dsmm-submit .button-primary {
+    padding: 5px 20px;
+    height: auto;
+    font-size: 14px;
+}

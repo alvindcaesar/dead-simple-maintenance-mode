@@ -9,7 +9,7 @@ class DSM_Mode {
             self::$instance = new DSM_Mode();
             self::$instance->includes();
 
-            // Load options before init
+            // Load options
             self::$options = get_option('dsmm_options', array());
 
             self::$instance->init();

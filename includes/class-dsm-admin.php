@@ -33,6 +33,18 @@ class DSM_Admin
 ?>
         <div class="wrap">
             <h1><?php _e('Dead Simple Maintenance Mode Settings', DSMM_TEXT_DOMAIN); ?></h1>
+            <?php
+            // Show settings saved message
+            if ( isset( $_GET['settings-updated'] ) ) {
+                add_settings_error(
+                    'dsmm_messages',
+                    'dsmm_message',
+                    __( 'Settings saved.', DSMM_TEXT_DOMAIN ),
+                    'updated'
+                );
+            }
+            settings_errors( 'dsmm_messages' );
+            ?>
             <form action="options.php" method="POST">
                 <?php
                 settings_fields('dsmm_group');

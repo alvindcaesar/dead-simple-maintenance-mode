@@ -8,33 +8,41 @@ class DSM_Maintenance {
     }
 
     private function init_hooks() {
-        add_action( 'get_header', array( $this, 'maintenance_init' ) );
+        add_action( 'template_redirect', array( $this, 'maintenance_init' ) );
     }
 
-    /**
-     * Initialize maintenance mode
-     */
-    public function maintenance_init()
-    {
-        $is_activated = isset(self::$options['dsmm_activate']) ? self::$options['dsmm_activate'] : '';
-
-        if (! $is_activated) {
+    public function maintenance_init() {
+        // Check if maintenance mode is activated
+        $is_activated = isset( $this->options['dsmm_activate'] ) && $this->options['dsmm_activate'] == 1;
+        
+        if ( ! $is_activated ) {
             return;
         }
 
-        $page_id   = self::$options['dsmm_page'];
-        $page_slug = get_post_field('post_name', $page_id);
-
-        if (! current_user_can('manage_options')) {
-            if (! is_page($page_id)) {
-                wp_redirect('/' . $page_slug . '/');
-                exit;
-            }
+        // Get maintenance page ID
+        $page_id = isset( $this->options['dsmm_page'] ) ? $this->options['dsmm_page'] : '';
+        
+        if ( empty( $page_id ) ) {
+            return;
         }
 
-        if (is_page($page_id)) {
-            status_header(503);
-            nocache_headers();
+        // Allow admin users to view the site
+        if ( current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        // Get current page ID
+        $current_page_id = get_queried_object_id();
+
+        // If we're not on the maintenance page, redirect to it
+        if ( $current_page_id != $page_id ) {
+            // Set maintenance mode headers
+            status_header( 503 );
+            header( 'Retry-After: 600' );
+            
+            // Redirect to maintenance page
+            wp_redirect( get_permalink( $page_id ) );
+            exit;
         }
     }
 }

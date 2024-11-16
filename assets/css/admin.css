@@ -103,7 +103,7 @@ wrap > .notice {
 /* Select Styling */
 .dsmm-content select {
     min-width: 300px;
-    padding: 8px;
+    padding: 4px 8px;
     border-radius: 4px;
     border: 1px solid #8c8f94;
 }

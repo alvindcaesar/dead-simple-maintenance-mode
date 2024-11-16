@@ -33,27 +33,27 @@ class DSM_Admin
     {
 ?>
         <div class="wrap">
-            <h1><?php _e('Dead Simple Maintenance Mode Settings', DSMM_TEXT_DOMAIN); ?></h1>
-            <?php
-            // Show settings saved message
-            if ( isset( $_GET['settings-updated'] ) ) {
-                add_settings_error(
-                    'dsmm_messages',
-                    'dsmm_message',
-                    __( 'Settings saved.', DSMM_TEXT_DOMAIN ),
-                    'updated'
-                );
-            }
-            settings_errors( 'dsmm_messages' );
-            ?>
-            <form action="options.php" method="POST">
-                <?php
-                settings_fields('dsmm_group');
-                do_settings_sections('dsmm-settings');
-                submit_button();
-                ?>
-            </form>
+            <?php settings_errors(); ?>
+
+            <div class="dsmm-settings-wrap">
+                <div class="dsmm-header">
+                    <h1><?php _e('Dead Simple Maintenance Mode Settings', DSMM_TEXT_DOMAIN); ?></h1>
+                </div>
+
+                <form action="options.php" method="POST">
+                    <div class="dsmm-content">
+                        <?php
+                        settings_fields('dsmm_group');
+                        do_settings_sections('dsmm-settings');
+                        ?>
+                    </div>
+                    <div class="dsmm-submit">
+                        <?php submit_button(__('Save Changes', DSMM_TEXT_DOMAIN)); ?>
+                    </div>
+                </form>
+            </div>
         </div>
+
     <?php
     }
 
@@ -96,16 +96,16 @@ class DSM_Admin
     {
         $is_activated = isset($this->options['dsmm_activate']) && $this->options['dsmm_activate'] == 1;
     ?>
-        <fieldset>
+        <div class="dsmm-checkbox-wrapper">
+            <input type="checkbox"
+                id="dsmm_activate"
+                name="dsmm_options[dsmm_activate]"
+                value="1"
+                <?php checked($is_activated); ?>>
             <label for="dsmm_activate">
-                <input type="checkbox"
-                    name="dsmm_options[dsmm_activate]"
-                    id="dsmm_activate"
-                    value="1"
-                    <?php checked($is_activated); ?>>
                 <?php _e('Activate Maintenance Mode', DSMM_TEXT_DOMAIN); ?>
             </label>
-        </fieldset>
+        </div>
     <?php
     }
 
@@ -131,7 +131,7 @@ class DSM_Admin
                 <?php endforeach; ?>
             </select>
         </fieldset>
-<?php
+    <?php
     }
 
     public function sanitize_options($input)
@@ -153,16 +153,31 @@ class DSM_Admin
 
     public function enqueue_assets($hook)
     {
+        // Only load on our settings page
         if ('tools_page_dsmm-settings' !== $hook) {
             return;
         }
 
-        wp_enqueue_style('dsmm-admin', DSMM_PLUGIN_URL . 'assets/css/admin.css', array(), DSMM_PLUGIN_VERSION);
-        wp_enqueue_script('dsmm-admin', DSMM_PLUGIN_URL . 'assets/js/admin.js', array('jquery'), DSMM_PLUGIN_VERSION, true);
+        // Enqueue admin styles
+        wp_enqueue_style(
+            'dsmm-admin-styles',
+            DSMM_PLUGIN_URL . 'assets/css/admin.css',
+            array(),
+            DSMM_PLUGIN_VERSION
+        );
+
+        wp_enqueue_script(
+            'dsmm-admin',
+            DSMM_PLUGIN_URL . 'assets/js/admin.js',
+            array('jquery'),
+            DSMM_PLUGIN_VERSION,
+            true
+        );
     }
 
-    public function add_admin_bar_indicator( $wp_admin_bar ) {
-        if ( ! isset( $this->options['dsmm_activate'] ) || ! $this->options['dsmm_activate'] ) {
+    public function add_admin_bar_indicator($wp_admin_bar)
+    {
+        if (! isset($this->options['dsmm_activate']) || ! $this->options['dsmm_activate']) {
             return;
         }
 
@@ -172,9 +187,9 @@ class DSM_Admin
                 'parent' => 'top-secondary',
                 'title'  => sprintf(
                     '<div style="background: #dc3545; height: 100%%; padding: 0 10px; color: #fff; line-height: 28px;">%s</div>',
-                    __( 'Maintenance Mode Active', DSMM_TEXT_DOMAIN )
+                    __('Maintenance Mode Active', DSMM_TEXT_DOMAIN)
                 ),
-                'href'   => admin_url( 'tools.php?page=dsmm-settings' ),
+                'href'   => admin_url('tools.php?page=dsmm-settings'),
                 'meta'   => array(
                     'class' => 'dsmm-maintenance-active',
                 ),
@@ -182,19 +197,21 @@ class DSM_Admin
         );
     }
 
-    public function add_indicator_styles() {
-        if ( ! isset( $this->options['dsmm_activate'] ) || ! $this->options['dsmm_activate'] ) {
+    public function add_indicator_styles()
+    {
+        if (! isset($this->options['dsmm_activate']) || ! $this->options['dsmm_activate']) {
             return;
         }
-        ?>
+    ?>
         <style>
             #wpadminbar .dsmm-maintenance-active .ab-item {
                 padding: 0 !important;
             }
-            #wpadminbar .dsmm-maintenance-active:hover .ab-item > div {
+
+            #wpadminbar .dsmm-maintenance-active:hover .ab-item>div {
                 background: #c82333 !important;
             }
         </style>
-        <?php
+<?php
     }
 }

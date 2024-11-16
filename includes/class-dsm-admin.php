@@ -14,6 +14,7 @@ class DSM_Admin
         add_action('admin_menu', array($this, 'setting_menu'));
         add_action('admin_init', array($this, 'setting_options'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_assets'));
+        add_action('admin_bar_menu', array($this, 'add_admin_bar_indicator'), 100);
     }
 
     public function setting_menu()
@@ -158,5 +159,42 @@ class DSM_Admin
 
         wp_enqueue_style('dsmm-admin', DSMM_PLUGIN_URL . 'assets/css/admin.css', array(), DSMM_PLUGIN_VERSION);
         wp_enqueue_script('dsmm-admin', DSMM_PLUGIN_URL . 'assets/js/admin.js', array('jquery'), DSMM_PLUGIN_VERSION, true);
+    }
+
+    public function add_admin_bar_indicator( $wp_admin_bar ) {
+        if ( ! isset( $this->options['dsmm_activate'] ) || ! $this->options['dsmm_activate'] ) {
+            return;
+        }
+
+        $wp_admin_bar->add_node(
+            array(
+                'id'     => 'dsmm-indicator',
+                'parent' => 'top-secondary',
+                'title'  => sprintf(
+                    '<div style="background: #dc3545; height: 100%%; padding: 0 10px; color: #fff; line-height: 28px;">%s</div>',
+                    __( 'Maintenance Mode Active', DSMM_TEXT_DOMAIN )
+                ),
+                'href'   => admin_url( 'tools.php?page=dsmm-settings' ),
+                'meta'   => array(
+                    'class' => 'dsmm-maintenance-active',
+                ),
+            )
+        );
+    }
+
+    public function add_indicator_styles() {
+        if ( ! isset( $this->options['dsmm_activate'] ) || ! $this->options['dsmm_activate'] ) {
+            return;
+        }
+        ?>
+        <style>
+            #wpadminbar .dsmm-maintenance-active .ab-item {
+                padding: 0 !important;
+            }
+            #wpadminbar .dsmm-maintenance-active:hover .ab-item > div {
+                background: #c82333 !important;
+            }
+        </style>
+        <?php
     }
 }

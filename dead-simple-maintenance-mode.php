@@ -7,7 +7,7 @@
  * Author URI:      https://alvindcaesar.com
  * Text Domain:     dead-simple-maintenance-mode
  * Domain Path:     /languages
- * Version:         1.0.2
+ * Version:         1.1
  *
  */
 
@@ -46,7 +46,7 @@ if (! class_exists("DSM_Mode")) {
         define("DSMM_PLUGIN_URL", plugin_dir_url(__FILE__));
         define("DSMM_PLUGIN_FILE", plugin_basename(__FILE__));
         define("DSMM_TEXT_DOMAIN", "dead-simple-maintenance-mode");
-        define("DSMM_PLUGIN_VERSION", "1.0");
+        define("DSMM_PLUGIN_VERSION", "1.1");
     }
 
     public function maintenance_init()
